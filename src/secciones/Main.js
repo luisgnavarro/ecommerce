@@ -2,6 +2,7 @@ import React, {  useEffect, useState } from 'react'
 // import Crear from './Crear';
 // import TareaCard from './TareaCard'
 
+
 const Main = () => {
     // traer tareas de firebase
     //1- fincion que haga peticion a firebase
