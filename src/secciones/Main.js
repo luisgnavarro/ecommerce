@@ -1,6 +1,6 @@
 import React, {  useEffect, useState } from 'react'
 import ArticuloCard from './ArticuloCard';
-// import TareaCard from './TareaCard'
+
 
 
 const Main = () => {
@@ -22,7 +22,7 @@ const Main = () => {
             .then(respuesta => {
 
                 setArticulo(respuesta);
-                console.log(respuesta);
+                // console.log(respuesta);
             });
     }
 
@@ -32,10 +32,39 @@ const Main = () => {
         getArticulos();
     }, []);
 
+    const addToCart = (user,titulo, descripcion, precio, imagen, categoria, marca, iden,image,cant) => {
+        const URL = 'https://megastore-bb279-default-rtdb.firebaseio.com/carro.json';
+        let objectTask = {
+            user,
+            titulo, 
+            descripcion, 
+            precio, 
+            imagen, 
+            categoria, 
+            marca,
+            iden,
+            image,
+            cant
+        }
+
+        fetch(URL,{method: 'POST', body: JSON.stringify(objectTask)})
+            .then(body => body.json())
+            .then(respuesta=>{
+                // console.log(respuesta);
+                alert('articulo agregado correctamente');
+            }
+                )  
+
+    }
+    
+        
+
+   
+
 
     return (
         <div className="container">
-            <h3>Selecciona los articulos de tu preferencia</h3>
+            {/* <h3>Selecciona los articulos de tu preferencia</h3> */}
            
             
             <div className="d-flex flex-wrap">
@@ -46,7 +75,12 @@ const Main = () => {
                             descripcion={articulo[id].description}
                             precio={articulo[id].price}
                             imagen={articulo[id].image}
+                            categoria={articulo[id].category}
+                            marca={articulo[id].brand}
+                            iden ={articulo[id]._id}
                             key={id}
+                            addToCart = {addToCart}  
+                            cantidad = '1'                          
                         />)
                 }
             </div>
