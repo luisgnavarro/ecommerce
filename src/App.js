@@ -9,14 +9,21 @@ import Main from "./secciones/Main";
 function App() {
   return (
     // BrowserRouter nos ayuda a establecer un componente como la raíz de diferentes rutas
+    
     <BrowserRouter>
     {/* Componentes fijos */}
+   
       <Navbar/>
-      <Main/>
+      
+     
       
       {/* Switch encapsula los componentes o secciones que estarán cambiando de acuerdo a la ruta */}
       <Switch>
         {/* Definir un componente por ruta */}
+
+        <Route exact path= "/" component={Main}/>
+        <Route exact path= "/Home" component={Main}/>
+
         <Route exact path= "/Cart" component={Cart}/>
 
         {/* Definir un componente por ruta */}
@@ -27,7 +34,7 @@ function App() {
 
       </Switch>
 
-
+      
     {/* <Footer/> */}
     </BrowserRouter>
     
@@ -37,19 +44,3 @@ function App() {
 export default App;
 
 
-
-
-// import './App.css';
-// import Main from './secciones/Main';
-// import Navbar from './secciones/Navbar';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <Navbar/>
-//       <Main/>
-//         </div>
-//   );
-// }
-
-// export default App;

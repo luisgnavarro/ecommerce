@@ -9,8 +9,8 @@ const ArticuloCard = (props) => {
   return (
     <div className="card" style={{ width: "20rem" }} >
       {imagen ?
-        <img src={imagen} class="card-img-top" alt="{titulo}"></img> :
-        <img src="https://assets.disney.crucemar.com/galery/camarotes/sin-imagen.gif" class="card-img-top" alt="No disponible"></img>
+        <img src={imagen} className="card-img-top" alt="{titulo}"></img> :
+        <img src="https://assets.disney.crucemar.com/galery/camarotes/sin-imagen.gif" className="card-img-top" alt="No disponible"></img>
       }
       <div className="card-body">
         <h5 className="card-title">{titulo} ({marca})</h5>

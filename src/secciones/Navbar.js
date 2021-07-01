@@ -1,6 +1,7 @@
 import React from 'react'
 
 
+
 const Navbar = () => {
     return (
         <div>
@@ -17,14 +18,17 @@ const Navbar = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="">Sign in</a>
+                        <li className="nav-item">
+                                <a className="nav-link active" aria-current="page" href="/">Home</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="">Sign up</a>
+                                <a className="nav-link active" aria-current="page" href="/SignIn">Sign in</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="">Cart</a>
+                                <a className="nav-link active" aria-current="page" href="/SignUp">Sign up</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link active" aria-current="page" href="/Cart">Cart</a>
                             </li>
 
                         </ul>
@@ -37,7 +41,7 @@ const Navbar = () => {
             </nav>
 
         </div>
-
+       
     )
 
 
