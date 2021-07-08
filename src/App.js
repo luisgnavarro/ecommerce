@@ -1,9 +1,12 @@
 import Navbar from "./secciones/Navbar";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Cart from "./sections/Cart";
-import SignIn from "./sections/SignIn";
-import SignUp from "./sections/SignUp";
+import Cart from "./secciones/Cart";
+import SignIn from "./secciones/SignIn";
+import SignUp from "./secciones/SignUp";
 import Main from "./secciones/Main";
+
+
+
 
 
 function App() {
@@ -14,7 +17,7 @@ function App() {
     {/* Componentes fijos */}
    
       <Navbar/>
-      
+     
      
       
       {/* Switch encapsula los componentes o secciones que estarán cambiando de acuerdo a la ruta */}
@@ -31,7 +34,8 @@ function App() {
 
         {/* Definir un componente por ruta */}
         <Route exact path="/Signup" component={SignUp}/>
-
+        
+        {/* Demo() */}
       </Switch>
 
       

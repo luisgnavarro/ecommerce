@@ -1,18 +1,27 @@
-import React from 'react'
+import React, {useState} from 'react';
 
 
 
 const Navbar = () => {
+
+    const [uso, setUso] = useState('')
+
+    const handleText =(event)=>{
+        setUso(event.target.value)
+     }
+    
+
     return (
         <div>
             {/* <nav className="navbar navbar-light bg-success">
                 <div className="container-fluid">
                     <span className="navbar-brand mb-0 h1 fs-1">Luis' Store</span>
                 </div>
-            </nav> */}
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            </nav> 
+            <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{"position":"fixed"}}>*/}
+            <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light" >
                 <div className="container-fluid">
-                    <h2 className="navbar-brand" href="#">Megastore</h2>
+                    <h2 className="navbar-brand" href="/"> <a className="nav-link active" aria-current="page" href="/">MegaSStore</a></h2>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -33,13 +42,16 @@ const Navbar = () => {
 
                         </ul>
                         <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
-                            <button className="btn btn-outline-success" type="submit">Search</button>
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="valor" onChange={handleText}></input>
+                            {/* <button className="btn btn-outline-success" type="submit" >Search</button> */}
+                            <button className="btn btn-outline-success" type="submit" onClick = "">Search</button>
+                            
                         </form>
                     </div>
                 </div>
+                <h2>{uso}</h2>
             </nav>
-
+            
         </div>
        
     )
