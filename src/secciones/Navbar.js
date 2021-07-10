@@ -2,13 +2,17 @@ import React, {useState} from 'react';
 
 
 
-const Navbar = () => {
 
-    const [uso, setUso] = useState('')
+// const Navbar = () => {
+    const Navbar = ({ onButtonClick , onSearch}) => {
 
-    const handleText =(event)=>{
-        setUso(event.target.value)
-     }
+        const [searchValue, setSearchValue] = useState('');
+        
+    // const [uso, setUso] = useState('')
+
+    // const handleText =(event)=>{
+    //     setUso(event.target.value)
+    //  }
     
 
     return (
@@ -41,15 +45,18 @@ const Navbar = () => {
                             </li>
 
                         </ul>
+                        {/* <form className="d-flex" method="post" action="Buscar"> */}
                         <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="valor" onChange={handleText}></input>
+                            <input className="form-control me-2" onChange={(e) => {
+                                onSearch(e.target.value)
+                                setSearchValue(e.target.value)}} type="search" placeholder="Search" aria-label="Search" id="valor" ></input>
                             {/* <button className="btn btn-outline-success" type="submit" >Search</button> */}
-                            <button className="btn btn-outline-success" type="submit" onClick = "">Search</button>
+                            <button className="btn btn-outline-success" type="submit" onClick={() => onButtonClick(searchValue)}>Search</button>
                             
                         </form>
                     </div>
                 </div>
-                <h2>{uso}</h2>
+                {/* <p>{searchValue}</p> */}
             </nav>
             
         </div>

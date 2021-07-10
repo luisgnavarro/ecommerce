@@ -11,32 +11,19 @@ let mImagen = '';
 let mCategoria = '';
 let mMarca = '';
 let mIden = '';
-let busqueda = '';
 
 
 
-const Main = (props) => {
-    const [searchValue, setSearchValue] = useState(props.searchValue);
-    
-    // const { searchValue } = props;
+
+const Buscar = () => {
+
     //variable de estados
     const [articulo, setArticulo] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [cant, setCant] = useState('');
-
-    // busqueda = searchValue;
-
-    console.log("MainBusq", props);
-
-    // if (typeof searchValue === 'object') {
-    //     busqueda = "";
-
-    // } else {
-    //     busqueda = searchValue;
-
-    // }
-    //    busqueda = 'al';  //al
-
+   
+    let busqueda = "ol";
+    
     const abrirModal = (titulo, descripcion, precio, imagen, categoria, marca, iden, cant) => {
 
         mTitulo = titulo;
@@ -107,13 +94,13 @@ const Main = (props) => {
 
     }
 
-
+    
 
 
     return (
 
 
-        <div className="container" style={{ marginTop: "90px" }} >
+        <div className="container" style={{marginTop:"90px"}} >
             {/* Modal */}
             {<Modal
                 isOpen={modalIsOpen}
@@ -148,12 +135,12 @@ const Main = (props) => {
                         // const handleText =(event)=>{
                         //     setUso(event.target.value)
                         //  }
-
+                        
                     }
                 }
             >
-                <img onClick={() => setModalIsOpen(false)} src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Back-small.svg/1024px-Back-small.svg.png" alt="back" height="50px" ></img>
-
+                    <img onClick={() => setModalIsOpen(false)} src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Back-small.svg/1024px-Back-small.svg.png" alt="back" height="50px" ></img>
+               
                 <div className="container card " style={{ maxWidth: "100%" }} >
                     <div className="row">
                         <div className="col-6">
@@ -170,7 +157,7 @@ const Main = (props) => {
                             <p className="card-text">{mCategoria}</p>
                             <div className="input-group mb-3">
                                 <label className="input-group-text" htmlFor="inputGroupSelect01">Cantidad</label>
-                                <select onChange={(evento) => { setCant(evento.target.value); }} className="form-select" id="inputGroupSelect01">
+                                <select onChange={(evento) => {  setCant(evento.target.value); }} className="form-select" id="inputGroupSelect01">
                                     <option value>Elegir cantidad...</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -199,9 +186,9 @@ const Main = (props) => {
             </Modal>}
 
             <div className="d-flex flex-wrap">
-                {searchValue.length > 0 ?
-                    articulo.filter(arti => arti.product_name.includes(searchValue)).map(flt => (
-                        <ArticuloCard
+
+            {articulo.filter(arti => arti.product_name.includes(busqueda)).map(flt => (
+                       <ArticuloCard
                             titulo={flt.product_name}
                             descripcion={flt.description}
                             precio={flt.price}
@@ -213,28 +200,10 @@ const Main = (props) => {
                             addToCart={addToCart}
                             cantidad='1'
                             abrirModal={abrirModal}
-                        // buscar = {buscar}
-                        />)
-                    ) :
-                    articulo.map(flt => (
-                        <ArticuloCard
-                            titulo={flt.product_name}
-                            descripcion={flt.description}
-                            precio={flt.price}
-                            imagen={flt.image}
-                            categoria={flt.category}
-                            marca={flt.brand}
-                            iden={flt._id}
-                            key={flt._id}
-                            addToCart={addToCart}
-                            cantidad='1'
-                            abrirModal={abrirModal}
-                        // buscar = {buscar}
-                        />)
-                    )
-                }
-                {
-                }
+                            // buscar = {buscar}
+                     />)
+                )
+}
 
 
             </div>
@@ -245,4 +214,4 @@ const Main = (props) => {
 }
 
 
-export default Main
+export default Buscar
