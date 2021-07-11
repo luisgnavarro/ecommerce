@@ -5,10 +5,7 @@ const SignIn = () => {
         <div className="bg-warning">
             <p>...</p>
             <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
+           
             <h1>Sección SIGN IN</h1>
         </div>
     )
