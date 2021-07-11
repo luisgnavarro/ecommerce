@@ -11,14 +11,14 @@ let mImagen = '';
 let mCategoria = '';
 let mMarca = '';
 let mIden = '';
-let busqueda = '';
+
 
 
 
 const Main = (props) => {
-    const [searchValue, setSearchValue] = useState(props.searchValue);
+    // const [searchValue, setSearchValue] = useState(props.searchValue);
     
-    // const { searchValue } = props;
+    const { searchValue } = props;
     //variable de estados
     const [articulo, setArticulo] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -26,7 +26,7 @@ const Main = (props) => {
 
     // busqueda = searchValue;
 
-    console.log("MainBusq", props);
+    console.log("MainBusq", searchValue,"Long",searchValue.length);
 
     // if (typeof searchValue === 'object') {
     //     busqueda = "";
@@ -193,7 +193,6 @@ const Main = (props) => {
                     {/* <div>
                         
                         <img onClick={() => setModalIsOpen(false)} src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Back-small.svg/1024px-Back-small.svg.png" alt="back" height="50px" ></img>
-
                     </div> */}
                 </div>
             </Modal>}

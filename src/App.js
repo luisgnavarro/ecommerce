@@ -5,7 +5,7 @@ import Cart from "./secciones/Cart";
 import SignIn from "./secciones/SignIn";
 import SignUp from "./secciones/SignUp";
 import Main from "./secciones/Main";
-import {AuthProvider} from './context/context';
+// import {AuthProvider} from './context/context';
 // import {BuscarProvider,useBusqueda} from './context/busca-context';
 // export default () => <BuscarProvider>
 //   <App></App>
@@ -17,7 +17,7 @@ function App() {
   const handleButtonClick = (searchValue) => {
     // setSearchValue(searchValue);
     console.log('App AntesMAin', searchValue);
-    alert('Holaaaa');
+    // alert('Holaaaa');
     Main(searchValue);
     
 }
@@ -34,10 +34,8 @@ function App() {
         onSearch = {onSearch}
     />
       <Switch>
-         <Route exact path= "/" component={Main}/>
-        {/* <Route exact path= "/Home" component={Main} searchValue={searchValue}/> */}
-        {/* <Route exact path= "/Home" render={(props)=>(<Main {...props} searchValue={searchValue}/>)} /> */}
-        <Route exact path= "/Home" component={()=>(<Main searchValue="hola"/>)} /> 
+        <Route exact path= "/" render={(props)=>(<Main {...props} searchValue={searchValue}/>)}/>
+        <Route exact path= "/Home" component={Main} searchValue={searchValue}/>
         <Route exact path= "/Cart" component={Cart}/>
         <Route exact path="/Signin" component={SignIn}/>
         <Route exact path="/Signup" component={SignUp}/>
@@ -49,5 +47,3 @@ function App() {
 }
 
 export default App;
-
-
