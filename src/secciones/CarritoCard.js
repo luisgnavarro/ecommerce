@@ -4,23 +4,12 @@ import React from 'react'
 
 const CarritoCard = (props) => {
   const { titulo, precio, imagen, marca, cantidad, removeFromCart, idArt } = props;
-  console.log('carritocard', props);
+  // console.log('carritocard', props);
 
-  // const [cant,setCant] = useState('');
+  
   return (
 
-    //     <div className="input-group mb-3">
-    //       <label className="input-group-text" for="inputGroupSelect01">Cantidad</label>
-    //       <select  className="form-select" id="inputGroupSelect01">
-    //         <option selected>{cantidad}</option>
-    //         {/* <option value="1">1</option>
-    //         <option value="2">2</option>
-    //         <option value="3">3</option>
-    //         <option value="4">4</option>
-    //         <option value="5">5</option>             */}
-    //       </select>
-    //     </div>
-
+   
 
     <div className="container card" style={{ maxWidth: "100%" }} >
       <div className="row">

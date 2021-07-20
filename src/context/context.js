@@ -1,38 +1,42 @@
 import { createContext, useContext, useReducer } from "react";
-import { initialState,AuthReducer } from "./reducer";
+import { AuthReducer, initialState } from "./reducer";
 
-const AuhtStateContext = createContext();  // contiene el token de autehtiacion y detalles del usuario
-const AuthDispatchContext = createContext(); // pasa el metodo de envie que nos da reducer para administrar el esdtado de los componentes que lo necesiten
+//CREAMOS LOS OBJETOS DE CONTEXTO
 
-//se crean hooks personalizados y se lanzan erroresen caso que esos se encuentran fuera de un proveedor
-export function useAuthState(){
-    const context = useContext(AuhtStateContext)
-    if (context === undefined){
-        throw new Error('useAuthState no definido, necesita de un proveedor')
+const AuthStateContext = createContext(); //CONTIENE EL TOKEN DE AUTENTICACION Y LOS DETALLES DEL USUARIO
+const AuthDispatchContext = createContext(); // SIRVE PARA PASAR EL METODO DE ENVIO QUE NOS DA EL USE REDUCER PARA ADMINISTRAR EL ESTADO AL O LOS COMPONNETES QUE LO NECESITAN
+
+// CREAMOS LOS HOOKS PERSONALIZADOS (USEAUTHCONTEXT, USEAUTHDISPATCH) Y TAMBIEN LANZA ALGUN ERROR EN CASO DE QUE ESTOS SE QUIERAN USAR FUERA DE LOS PROVEEDORES DE CONETXTO
+export function useAuthState() {
+    const context = useContext(AuthStateContext);
+    if (context === undefined) {
+        throw new Error("useAuthState must be used within a AuthProvider");
     }
-    return context
+
+    return context;
 }
 
-export function useAuthDispatch(){
-    const context = useContext(AuthDispatchContext)
-    if (context === undefined){
-        throw new Error('useAuthDispatch no definido, necesita de un proveedor')
+export function useAuthDispatch() {
+    const context = useContext(AuthDispatchContext);
+    if (context === undefined) {
+        throw new Error("useAuthDispatch must be used within a AuthProvider");
     }
-    return context
+
+    return context;
 }
 
-//creamos un proveedor perzonalizado llamado authprovider, que provee el contexto a toda la apliación
-//esta funcion es nuestra administración del estado usando, usereducer. devuelve un objeto de estado de usuario y un metodo
+// CREAMOS UN PROVEEDOR PERSONALIZADO LLAMADO AUTHPROVIDER, QUE PROVEE DEL CONTEXTO A LA APLICACION.
+//ESTA FUNCION ES NUESTRA ADMINISTRACION DEL ESTADO USANDO USE REDUCER. DEVUELVE UN OBJETO DE ESTADO Y UN METODO DE ENVIO PARA LOS CAMBIOS DE ESTADO
+//PASAMOS EL AUTHSTATECONTEXT Y EL AUTHDISPATCHCONTEXT PARA QUE LOS HIJOS DEL AUTHPROVIDER TENGAN ACCESO AL OBJETO DE USUARIO Y EL METODO DE ENVIO
 
-export const AuthProvider = (children) => {
-    const [usuario, dispatch] = useReducer(AuthReducer, initialState)
+export const AuthProvider = ({ children }) => {
+    const [user, dispatch] = useReducer(AuthReducer, initialState);
 
-    return(
-        <AuhtStateContext.Provider value = {usuario}>
-            <AuthDispatchContext.Provider value = {dispatch}>
+    return (
+        <AuthStateContext.Provider value={user}>
+            <AuthDispatchContext.Provider value={dispatch}>
                 {children}
             </AuthDispatchContext.Provider>
-        </AuhtStateContext.Provider>
-        
-    )
-}
+        </AuthStateContext.Provider>
+    );
+};

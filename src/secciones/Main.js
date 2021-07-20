@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import ArticuloCard from './ArticuloCard';
 import Modal from 'react-modal';
 
-
-
 let mTitulo = '';
 let mDescripcion = '';
 let mPrecio = '';
@@ -11,31 +9,31 @@ let mImagen = '';
 let mCategoria = '';
 let mMarca = '';
 let mIden = '';
-
-
-
+let contador = 0;
 
 const Main = (props) => {
-    // const [searchValue, setSearchValue] = useState(props.searchValue);
-    
+
+
     const { searchValue } = props;
+
+
+
     //variable de estados
     const [articulo, setArticulo] = useState([]);
+    const [mostrar, setMostrar] = useState("block");
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [cant, setCant] = useState('');
 
     // busqueda = searchValue;
+    contador = 0;
+    articulo.filter(arti => arti.product_name.toLowerCase().includes(searchValue.toLowerCase())).map(flt => (
+        contador++
 
-    console.log("MainBusq", searchValue,"Long",searchValue.length);
+    ))
+    // console.log("contador", contador);
+    // console.log("MainBusq", searchValue, "Long", searchValue.length);
 
-    // if (typeof searchValue === 'object') {
-    //     busqueda = "";
 
-    // } else {
-    //     busqueda = searchValue;
-
-    // }
-    //    busqueda = 'al';  //al
 
     const abrirModal = (titulo, descripcion, precio, imagen, categoria, marca, iden, cant) => {
 
@@ -45,16 +43,9 @@ const Main = (props) => {
         mImagen = imagen;
         mCategoria = categoria;
         mMarca = marca;
-        // mCant = cant;
         mIden = iden;
         setModalIsOpen(true)
-        // console.log('abrir Modal', titulo, precio, imagen, categoria, marca, cant);
-
     }
-
-    // const buscar = (texto) => {
-    //     busqueda = texto;
-    // }
 
     const getArticulos = () => {
         const URL = 'https://ecomerce-master.herokuapp.com/api/v1/item';
@@ -63,9 +54,18 @@ const Main = (props) => {
             .then(body => body.json())
             // .then(respuesta => console.log(respuesta));
             .then(respuesta => {
-                // console.log('Mi respuesta:', respuesta);
+                let productosCompletos = respuesta.map(prod => {
+                    let objProducto = {};
 
-                setArticulo(respuesta);
+                    objProducto = prod.image && prod.image.slice(0, 4) === 'http' ? prod :
+                        prod.images && prod.images.slice(0, 4) === 'http' ? { ...prod, image: prod.images } :
+                            { ...prod, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd1uZT7WyViB1GdvozvJrlRdGMvRU-0Xm2NQ&usqp=CAU' }
+
+                    return objProducto;
+                })
+                setArticulo(productosCompletos);
+                setMostrar("none");
+
                 // console.log(respuesta);
             });
     }
@@ -74,6 +74,7 @@ const Main = (props) => {
     //el callback del useEffect antes que el componente se monte
     useEffect(() => {
         getArticulos();
+
     }, []);
 
     const addToCart = (user, titulo, descripcion, precio, imagen, categoria, marca, iden, image, cant) => {
@@ -114,7 +115,7 @@ const Main = (props) => {
 
 
         <div className="container" style={{ marginTop: "90px" }} >
-            {/* Modal */}
+
             {<Modal
                 isOpen={modalIsOpen}
                 shouldCloseOnOverlayClick={false}
@@ -143,11 +144,6 @@ const Main = (props) => {
                             transform: 'translate(-30,-30%)'
 
                         }
-                        // const [uso, setUso] = useState('')
-
-                        // const handleText =(event)=>{
-                        //     setUso(event.target.value)
-                        //  }
 
                     }
                 }
@@ -190,16 +186,14 @@ const Main = (props) => {
 
                         </div>
                     </div>
-                    {/* <div>
-                        
-                        <img onClick={() => setModalIsOpen(false)} src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Back-small.svg/1024px-Back-small.svg.png" alt="back" height="50px" ></img>
-                    </div> */}
+
                 </div>
             </Modal>}
 
             <div className="d-flex flex-wrap">
+
                 {searchValue.length > 0 ?
-                    articulo.filter(arti => arti.product_name.includes(searchValue)).map(flt => (
+                    articulo.filter(arti => arti.product_name.toLowerCase().includes(searchValue.toLowerCase())).map(flt => (
                         <ArticuloCard
                             titulo={flt.product_name}
                             descripcion={flt.description}
@@ -232,10 +226,10 @@ const Main = (props) => {
                         />)
                     )
                 }
-                {
-                }
-
-
+                {contador === 0 && searchValue.length > 0 ? <span className="badge bg-warning text-dark fs-3">No existen resultados...intenta otra vez</span>
+                    : (<div className="spinner-grow text-success" role="status" style={{ display: mostrar }}>
+                        <p style={{ display: mostrar }}>  °</p>
+                        <span style={{ display: mostrar }}>cargando articulos</span></div>)}
             </div>
 
         </div >

@@ -1,8 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import CarritoCard from './CarritoCard';
+import { AuthContext } from '../context/Auth';
+
+let esconder = "none";
+let esconder1 = "block";
+
+
 
 
 const Cart = () => {
+    const {currentUser} = useContext(AuthContext);
+            console.log("cart....entrando..",currentUser)
+            esconder = "none"; esconder1 = "block";
+            if (currentUser) {
+                esconder = "block";
+                esconder1 = "none";
+            } else {
+                esconder1 = "block";
+                esconder = "none";
+            }
+    
     let total = 0;
     // const [nombreVariable, nombreMetodoQueActualiza] = useState(valorInicialVariable)
     const [arts, setArts] = useState([]);
@@ -29,7 +46,7 @@ const Cart = () => {
     // FUNCION ELIMINAR de carrito
 
     const removeFromCart = (idArt) => {
-        console.log('borrando', idArt);
+        // console.log('borrando', idArt);
         const URL = `https://megastore-bb279-default-rtdb.firebaseio.com/carro/${idArt}.json`;
 
 
@@ -52,9 +69,10 @@ const Cart = () => {
         getArts();
     }, []);
 
+    
 
     return (
-        arts !== null ?
+       arts !== null ?
             Object.keys(arts).map(id => total = total + arts[id].precio * arts[id].cant) :
             total = 0,
         <div className="container" style={{marginTop:"90px"}}>
@@ -87,14 +105,24 @@ const Cart = () => {
                 <h3 className="text-center"> Total: {total} </h3>
             </div>
             {total > 0 ? (
+                <div>
                 <div className="d-grid gap-2 col-6 mx-auto">
-                    <button className="btn btn-primary" type="button">Proceder al pago</button>
-                </div>) :
+                    <button className="btn btn-primary" type="button"
+                     style={{display:esconder}} 
+                    >Proceder al pago</button>
+                </div>
+                <span className="badge bg-warning text-dark fs-3"
+                        style={{display:esconder1}}
+                >Favor de autenticarse para proceder al pago</span> 
+                                                        
+                </div>)
+                 :
                 (<div>
 
                 </div>)}
 
             </div>
+         
                         )
 }
 
